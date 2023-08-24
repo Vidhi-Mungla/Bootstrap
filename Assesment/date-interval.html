@@ -14,26 +14,36 @@
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
             
-            <script>
-                $(function () {
-                    $("#date1").datepicker();
-                    $("#date2").datepicker();
-                });
+           <!-- ... (your existing HTML code) ... -->
+
+<script>
+    $(function () {
+        $("#date1").datepicker({
+            dateFormat: "mm/dd/yy"
+        });
+        $("#date2").datepicker({
+            dateFormat: "mm/dd/yy"
+        });
+    });
+
+    function calculateDifference() {
+        var date1 = new Date($("#date1").val());
+        var date2 = new Date($("#date2").val());
+
+        var milliseconds = date2 - date1;
+        var days = Math.abs(milliseconds) / (1000 * 3600 * 24);
+        var years = Math.floor(days / 365);
         
-                function calculateDifference() {
-                    var date1 = new Date($("#date1").val());
-                    var date2 = new Date($("#date2").val());
-        
-                    var milliseconds = date2 - date1;
-                    var days = Math.abs(milliseconds) / (1000 * 3600 * 24);
-                    var years = Math.floor(days / 365);
-                    var months = Math.floor((days % 365) / 30);
-        
-                    $("#days").text(Math.round(days));
-                    $("#years").text(years);
-                    $("#months").text(months);
-                }
-            </script>
+        var months = (date2.getMonth() - date1.getMonth()) + (12 * (date2.getFullYear() - date1.getFullYear()));
+
+        $("#days").text(Math.round(days));
+        $("#years").text(years);
+        $("#months").text(months);
+    }
+</script>
+
+<!-- ... (the rest of your HTML code) ... -->
+
         </head>
         
         <body>
